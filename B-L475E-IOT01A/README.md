@@ -21,9 +21,3 @@ Some feature of the development kit used in this code include:
 
 Each sub-module will perform a different task. <br />
 Some sub-modules are from ECSE444 Microprosessor course. <br />
-
-Softwares used for this code:
-- STM32CubeIDE
-- STM32CubeMX
-- Java SDK
-- ST-LINK/V2 drivers
