@@ -1,6 +1,6 @@
-# Microprocessor
+# B-L475E-IOT01A
 
-This repository contains work done on STM32 B-L475E-IOT01A development kit.
+This repository contains work done on ST B-L475E-IOT01A development kit.
 
 The Discovery kit enables a wide diversity of applications by exploiting low-power communication, multiway sensing and Arm® Cortex® -M4 core-based STM32L4 Series features.
 
