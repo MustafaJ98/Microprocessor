@@ -22,6 +22,8 @@
 
 /* Private includes ----------------------------------------------------------*/
 /* USER CODE BEGIN Includes */
+#define ARM_MATH_CM4
+#include "arm_math.h"
 
 /* USER CODE END Includes */
 
@@ -94,20 +96,21 @@ int main(void)
   uint32_t SAW[16] = {0,256, 512, 768,1024,1280,1536,1792,2048,2308,2560,2816,3072,3328,3584,3840};
   uint32_t Triangle[16] = {0,500,1000,1500,2000,2500,3000,3500,4000,3500,3000,2500,2000,1500,1000,500};
 
-  /*    uint32_t time_rad[20] = {};
-      for (uint8_t i = 0; i < 20; i++)
+/*      float32_t time_rad[100] = {};
+      for (uint8_t i = 0; i < 100; i++)
         {
-          time_rad[i] = (2 * i * M_PI) / 20;
+          time_rad[i] = (2 * i * M_PI) / (float)100;
         }
-      float32_t  sine_wave[20] =  {};
+      uint32_t  sine_wave[100] =  {};
 
-      for (uint8_t i = 0; i < 20; i++)
+      for (uint8_t i = 0; i < 100; i++)
            {
-            sine_wave[i] = 4095*(uint32_t)arm_sinf32(time_rad[i]);
+            sine_wave[i] =fabs(4094*arm_sin_f32(time_rad[i]));
            }*/
 
-  uint8_t i=0, j = 0;
+  uint8_t i=0, j=0;
   uint32_t saw_out,trig_out;
+  uint32_t sin_out;
   HAL_DAC_Start(&hdac1, DAC1_CHANNEL_1);
   HAL_DAC_Start(&hdac1, DAC1_CHANNEL_2);
 
@@ -121,15 +124,20 @@ int main(void)
     /* USER CODE END WHILE */
 
     /* USER CODE BEGIN 3 */
-	  saw_out = SAW[i++];
+	  saw_out = SAW[j];
 	  trig_out = Triangle[j++];
-	//  HAL_DAC_SetValue(&hdac1, DAC1_CHANNEL_1,DAC_ALIGN_12B_R,saw_out);
+	 // sin_out = sine_wave[i++];
+
+	  //HAL_DAC_SetValue(&hdac1, DAC1_CHANNEL_1,DAC_ALIGN_12B_R,saw_out);
 	  DAC1->DHR12R1 = saw_out;
 	  DAC1-> DHR12R2 = trig_out;
-	  if(i == 16) { i = 0; }
 	  if(j == 16) { j = 0; }
-	 //HAL_Delay(0.096);
-	  HAL_Delay(500);
+	  	  	  	  	  	  	  	  	  // frequency = 1/timePeriod = 1/(samplesPerPeriod*sampleDelay)
+	  HAL_Delay(0.9615);					//sampleDelay = 1/(samplePerPeriod*freq)
+	  	  	  	  	  	  	  	  	  	  // delay  =  1/(16*65) = 0.9615 ms;
+	  //DAC1->DHR12R1 = sin_out;
+	  //if(i == 100) {i=0; }
+	  //HAL_Delay(0.01538);
   }
   /* USER CODE END 3 */
 }
